@@ -21,17 +21,20 @@ function App() {
   const id = 1;
 
   const { data, refetch } = useQuery({
+    staleTime: 15 * 1000,
     queryKey: ['getTodo', id],
     queryFn: () => getTodo(id),
-    placeholderData: { title: 'todo1' },
+    placeholderData: { title: 'todo1' }, //캐시에 유지되지 않는다.
   });
 
   // // 두 번째 useQuery에서 id 변수를 사용합니다.
   const { data: data2, refetch: refetch2 } = useQuery({
+    staleTime: 15 * 1000,
     queryKey: ['getTodo2'], // 여기서는 id + 1로 예시를 들었습니다.
     queryFn: () => getTodo2(2),
-    initialData: { title: 'todo2' },
+    initialData: { title: 'todo2' }, //캐시 유지
   });
+
   console.log('place holder');
   console.log(data);
   console.log('initial data');
